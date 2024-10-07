@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FameMatchServer", "FameMatchServer\FameMatchServer.csproj", "{848D0492-C89F-4441-BFB2-55A531A9FA76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{848D0492-C89F-4441-BFB2-55A531A9FA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848D0492-C89F-4441-BFB2-55A531A9FA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848D0492-C89F-4441-BFB2-55A531A9FA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848D0492-C89F-4441-BFB2-55A531A9FA76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E30C7A14-F775-46BA-AB0E-F1A57098A3DD}
+	EndGlobalSection
+EndGlobal
