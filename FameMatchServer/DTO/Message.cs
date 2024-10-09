@@ -15,8 +15,8 @@ namespace FameMatchServer.DTO
 
         public DateTime MessageTime { get; set; }
 
-        public virtual User? Reciver { get; set; }
+        //public virtual User? Reciver { get; set; }
 
-        public virtual User? Sender { get; set; }
+        //public virtual User? Sender { get; set; }
     }
 }

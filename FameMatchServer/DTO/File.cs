@@ -12,6 +12,6 @@ namespace FameMatchServer.DTO
         public string FileExt { get; set; } = null!;
 
         
-        public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+        //public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
     }
 }

@@ -14,9 +14,9 @@ namespace FameMatchServer.DTO
         public string Content { get; set; } = null!;
 
         
-        public virtual User? Reported { get; set; }
+        //public virtual User? Reported { get; set; }
 
        
-        public virtual User? User { get; set; }
+        //public virtual User? User { get; set; }
     }
 }

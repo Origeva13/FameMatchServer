@@ -25,6 +25,6 @@ namespace FameMatchServer.DTO
 
         public string Answer4 { get; set; } = null!;
 
-        public virtual Casted? User { get; set; }
+        //public virtual Casted? User { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace FameMatchServer.DTO
 
         public int? FileId { get; set; }
 
-        public virtual File? File { get; set; }
+        //public virtual File? File { get; set; }
 
-        public virtual User User { get; set; } = null!;
+        //public virtual User User { get; set; } = null!; לשאול את עופר
     }
 }

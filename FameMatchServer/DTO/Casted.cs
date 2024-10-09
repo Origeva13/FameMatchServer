@@ -31,9 +31,9 @@ namespace FameMatchServer.DTO
         public string AboutMe { get; set; } = null!;
 
         
-        public virtual ICollection<Tip> Tips { get; set; } = new List<Tip>();
+        //public virtual ICollection<Tip> Tips { get; set; } = new List<Tip>();
 
         
-        public virtual User User { get; set; } = null!;
+        //public virtual User User { get; set; } = null!; לשאול את עופר
     }
 }

@@ -35,7 +35,7 @@ namespace FameMatchServer.DTO
         public bool IsPublic { get; set; }
 
         
-        public virtual Castor? User { get; set; }
+        //public virtual Castor? User { get; set; }
     }
 }
 

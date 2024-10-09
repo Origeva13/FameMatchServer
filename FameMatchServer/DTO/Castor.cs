@@ -13,9 +13,9 @@ namespace FameMatchServer.DTO
         public int NumOfLisence { get; set; }
 
         
-        public virtual ICollection<Audition> Auditions { get; set; } = new List<Audition>();
+        //public virtual ICollection<Audition> Auditions { get; set; } = new List<Audition>();
 
         
-        public virtual User User { get; set; } = null!;
+        //public virtual User User { get; set; } = null!; לשאול את עופר
     }
 }
