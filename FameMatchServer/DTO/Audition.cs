@@ -34,7 +34,22 @@ namespace FameMatchServer.DTO
 
         public bool IsPublic { get; set; }
 
-        
+        public Audition() { }
+        public Audition(Models.Audition A)
+        {
+            this.UserId = A.UserId;
+            this.AudId = A.AudId;
+            this.Description = A.Description;
+            this.AudAge = A.AudAge;
+            this.AudLocation = A.AudLocation;
+            this.AudHigth = A.AudHigth;
+            this.AudHair= A.AudHair;
+            this.AudEyes = A.AudEyes;
+            this.UserBody = A.UserBody;
+            this.AudSkin = A.AudSkin;
+            this.IsPublic = A.IsPublic;
+        }
+
         //public virtual Castor? User { get; set; }
     }
 }

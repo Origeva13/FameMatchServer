@@ -53,11 +53,11 @@ namespace FameMatchServer.DTO
             this.UserGender= modelUser.UserGender;
             this.IsReported= modelUser.IsReported;
             this.IsBlocked = modelUser.IsBlocked;
-            this.UserTasks = new List<UserTask>();
-            foreach (var task in modelUser.UserTasks)
-            {
-                this.UserTasks.Add(new UserTask(task));
-            }
+            //this.UserTasks = new List<UserTask>();
+            //foreach (var task in modelUser.UserTasks)
+            //{
+            //    this.UserTasks.Add(new UserTask(task));
+            //}
         }
     }
 }

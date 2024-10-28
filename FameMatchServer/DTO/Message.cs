@@ -14,6 +14,8 @@ namespace FameMatchServer.DTO
         public string Content { get; set; } = null!;
 
         public DateTime MessageTime { get; set; }
+        public Message() { }
+
 
         //public virtual User? Reciver { get; set; }
 
