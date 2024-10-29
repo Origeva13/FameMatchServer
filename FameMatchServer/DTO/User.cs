@@ -53,11 +53,20 @@ namespace FameMatchServer.DTO
             this.UserGender= modelUser.UserGender;
             this.IsReported= modelUser.IsReported;
             this.IsBlocked = modelUser.IsBlocked;
-            //this.UserTasks = new List<UserTask>();
-            //foreach (var task in modelUser.UserTasks)
-            //{
-            //    this.UserTasks.Add(new UserTask(task));
-            //}
+        }
+        public Models.User GetModel()
+        {
+            Models.User U= new Models.User();
+            U.UserId = this.UserId;
+            U.UserName = this.UserName;
+            U.UserLastName = this.UserLastName;
+            U.UserEmail = this.UserEmail;
+            U.UserPassword = this.UserPassword;
+            U.IsManager = this.IsManager;
+            U.UserGender = this.UserGender;
+            U.IsReported = this.IsReported;
+            U.IsBlocked = this.IsBlocked;
+            return U;
         }
     }
 }

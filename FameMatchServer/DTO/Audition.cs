@@ -49,7 +49,22 @@ namespace FameMatchServer.DTO
             this.AudSkin = A.AudSkin;
             this.IsPublic = A.IsPublic;
         }
-
+        public Models.Audition GetModel()
+        {
+            Models.Audition A = new Models.Audition();
+            A.UserId = this.UserId;
+            A.AudId = this.AudId;
+            A.Description = this.Description;
+            A.AudAge = this.AudAge;
+            A.AudLocation = this.AudLocation;
+            A.AudHigth= this.AudHigth;
+            A.AudHair = this.AudHair;
+            A.AudEyes= this.AudEyes;
+            A.UserBody = this.UserBody;
+            A.AudSkin = this.AudSkin;
+            A.IsPublic = this.IsPublic;
+            return A;
+        }
         //public virtual Castor? User { get; set; }
     }
 }

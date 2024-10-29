@@ -41,7 +41,35 @@ namespace FameMatchServer.DTO
             this.UserSkin = C.UserSkin;
             this.AboutMe = C.AboutMe;
         }
+        public Models.Casted GetModel()
+        {
+            var User = this.GetModel();
+            var casted = new Models.Casted 
+            { 
+                UserAge = this.UserAge,
+                UserLocation = this.UserLocation,
+                UserHigth = this.UserHigth,
+                UserHair = this.UserHair,
+                UserEyes = this.UserEyes,
+                UserBody = this.UserBody,
+                UserSkin=this.UserSkin,
+                AboutMe = this.AboutMe
+                
 
+            };
+            casted.User.UserId = this.UserId;
+            casted.User.UserName = this.UserName;
+            casted.User.UserLastName = this.UserLastName;
+            casted.User.UserEmail = this.UserEmail;
+            casted.User.UserPassword = this.UserPassword;
+            casted.User.IsManager = this.IsManager;
+            casted.User.UserGender = this.UserGender;
+            casted.User.IsReported = this.IsReported;
+            casted.User.IsBlocked = this.IsBlocked;
+
+            return casted;
+
+        }
         //public virtual ICollection<Tip> Tips { get; set; } = new List<Tip>();
 
 
