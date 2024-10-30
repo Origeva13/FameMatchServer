@@ -29,24 +29,50 @@ public class FameMatchAPIController : ControllerBase
     {
         try
         {
-          
-            HttpContext.Session.Clear(); //Logout any previous login attempt
+            if (loginDto is DTO.Casted)
+            {
+                HttpContext.Session.Clear(); //Logout any previous login attempt
 
-            //Get model user class from DB with matching email. 
-            Models.User? modelsUser = context.GetUser(loginDto.UserEmail);
+                //Get model user class from DB with matching email. 
+                Models.Casted? modelsCasted = context.GetCasted(loginDto.UserEmail);
 
-            //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
-            if (modelsUser == null || modelsUser.UserPassword != loginDto.UserPassword)
+                //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
+                if (modelsCasted == null || modelsCasted.User.UserPassword != loginDto.UserPassword)
+                {
+                    return Unauthorized();
+                }
+
+                //Login suceed! now mark login in session memory!
+                HttpContext.Session.SetString("loggedInCasted", modelsCasted.User.UserEmail);
+
+                DTO.Casted dtoCasted = new DTO.Casted(modelsCasted);
+                // dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.UserId);
+                return Ok(dtoCasted);
+            }
+            else if(loginDto is  DTO.Castor) 
+            {
+                HttpContext.Session.Clear(); //Logout any previous login attempt
+
+                //Get model user class from DB with matching email. 
+                Models.Castor? modelsCastor = context.GetCastor(loginDto.UserEmail);
+
+                //Check if user exist for this email and if password match, if not return Access Denied (Error 403) 
+                if (modelsCastor == null || modelsCastor.User.UserPassword != loginDto.UserPassword)
+                {
+                    return Unauthorized();
+                }
+
+                //Login suceed! now mark login in session memory!
+                HttpContext.Session.SetString("loggedInCastor", modelsCastor.User.UserEmail);
+
+                DTO.Castor dtoCastor = new DTO.Castor(modelsCastor);
+                // dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.UserId);
+                return Ok(dtoCastor);
+            }
+            else//לשאול את עופר
             {
                 return Unauthorized();
             }
-
-            //Login suceed! now mark login in session memory!
-            HttpContext.Session.SetString("loggedInCasted", modelsUser.UserEmail);
-
-            DTO. User dtoUser = new DTO.User(modelsUser);
-           // dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.UserId);
-            return Ok(dtoUser);
         }
         catch (Exception ex)
         {
