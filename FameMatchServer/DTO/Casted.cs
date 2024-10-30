@@ -41,9 +41,9 @@ namespace FameMatchServer.DTO
             this.UserSkin = C.UserSkin;
             this.AboutMe = C.AboutMe;
         }
-        public Models.Casted GetModel()
+        public new Models.Casted GetModel()
         {
-            var User = this.GetModel();
+            var BaseUser = base.GetModel();
             var casted = new Models.Casted 
             { 
                 UserAge = this.UserAge,
@@ -53,19 +53,12 @@ namespace FameMatchServer.DTO
                 UserEyes = this.UserEyes,
                 UserBody = this.UserBody,
                 UserSkin=this.UserSkin,
-                AboutMe = this.AboutMe
-                
+                AboutMe = this.AboutMe,
+                User = BaseUser
+
 
             };
-            casted.User.UserId = this.UserId;
-            casted.User.UserName = this.UserName;
-            casted.User.UserLastName = this.UserLastName;
-            casted.User.UserEmail = this.UserEmail;
-            casted.User.UserPassword = this.UserPassword;
-            casted.User.IsManager = this.IsManager;
-            casted.User.UserGender = this.UserGender;
-            casted.User.IsReported = this.IsReported;
-            casted.User.IsBlocked = this.IsBlocked;
+            
 
             return casted;
 
