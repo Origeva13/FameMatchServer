@@ -28,7 +28,7 @@ IsReported bit Not Null Default 0,
 IsBlocked bit Not Null Default 0
 )
 
-Create Table Castors
+Create Table Castor
 (
 UserId INT PRIMARY KEY,
 Foreign Key(UserId) REFERENCES Users(UserId) ,
@@ -60,7 +60,7 @@ Content nvarchar (800) Not Null
 
 Create Table Auditions
 (
-UserId  int Foreign Key References Castors(UserId),
+UserId  int Foreign Key References Castor(UserId),
 AudId int Primary Key Identity (1,1),
 Description nvarchar(800) Not Null,
 AudAge int Not Null,
@@ -124,6 +124,8 @@ Go
 
 insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,UserGender,IsReported,IsBlocked) 
 values('Ori', 'Geva', 'geva.ori1@gmail.com','ori1geva2$!',1,'male',0,0)
+insert into Castor(UserId,CompanyName,NumOfLisence)
+values(1,'oriCompany',1)
 
-select*from Users
+select*from Castor
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force

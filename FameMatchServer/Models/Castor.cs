@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FameMatchServer.Models;
 
+[Table("Castor")]
 public partial class Castor
 {
     [Key]
