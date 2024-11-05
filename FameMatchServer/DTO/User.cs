@@ -27,13 +27,13 @@ namespace FameMatchServer.DTO
 
         public bool IsBlocked { get; set; }
 
-        public virtual Casted? Casted { get; set; }
+        //public virtual Casted? Casted { get; set; }
 
-        public virtual Castor? Castor { get; set; }
+        //public virtual Castor? Castor { get; set; }
 
         //public virtual ICollection<Message> MessageRecivers { get; set; } = new List<Message>();
 
-        
+
         //public virtual ICollection<Message> MessageSenders { get; set; } = new List<Message>();
 
         public virtual Picture? Picture { get; set; }

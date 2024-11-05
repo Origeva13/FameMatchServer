@@ -127,5 +127,5 @@ values('Ori', 'Geva', 'geva.ori1@gmail.com','ori1geva2$!',1,'male',0,0)
 insert into Castor(UserId,CompanyName,NumOfLisence)
 values(1,'oriCompany',1)
 
-select*from Castor
+select*from Users
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force
