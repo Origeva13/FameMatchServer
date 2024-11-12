@@ -116,21 +116,21 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
-    [HttpPost("register")]
-    public IActionResult Register([FromBody] DTO.User userDto)
+    [HttpPost("CastedRegister")]
+    public IActionResult CastedRegister([FromBody] DTO.Casted userDto)
     {
         try
         {
             HttpContext.Session.Clear(); //Logout any previous login attempt
 
             //Create model user class
-            Models.User modelsUser = userDto.GetModel();
+            Models.Casted modelsCasted = userDto.GetModel();
 
-            context.Users.Add(modelsUser);
+            context.Casteds.Add(modelsCasted);
             context.SaveChanges();
 
             //User was added!
-            DTO.User dtoUser = new DTO.User(modelsUser);
+            DTO.Casted dtoUser = new DTO.Casted(modelsCasted);
             //////dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
             return Ok(dtoUser);
         }
@@ -140,7 +140,30 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpPost("CastorRegister")]
+    public IActionResult CastorRegister([FromBody] DTO.Castor userDto)
+    {
+        try
+        {
+            HttpContext.Session.Clear(); //Logout any previous login attempt
 
+            //Create model user class
+            Models.Castor modelsCastor = userDto.GetModel();
+
+            context.Castors.Add(modelsCastor);
+            context.SaveChanges();
+
+            //User was added!
+            DTO.Castor dtoUser = new DTO.Castor(modelsCastor);
+            //////dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+            return Ok(dtoUser);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 
 
 
