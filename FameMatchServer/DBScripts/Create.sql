@@ -134,5 +134,5 @@ insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,User
 values('Marom', 'Hai-Jan', 'Marom@gmail.com','ma123',1,'female',0,0)
 insert into Casted(UserId,UserAge,UserBody,UserEyes,UserHair,UserHigth,UserLocation,UserSkin,AboutMe)
 values(3,16,'skiny','blue','blonde',183,'Hod Hasharon','white','ddddddd')
-select*from Users
+select*from Casted
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force
