@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using FameMatchServer.Models;
 
 namespace FameMatchServer.DTO
 {
@@ -20,21 +21,15 @@ namespace FameMatchServer.DTO
         }
         public Models.Castor GetModel()
         {
-            var User = this.GetModel();
+            var BaseUser = base.GetModel();
             var castor = new Models.Castor
             {
                CompanyName=this.CompanyName,
-               NumOfLisence=this.NumOfLisence
+               NumOfLisence=this.NumOfLisence,
+               User = BaseUser
             };
-            castor.User.UserId = this.UserId;
-            castor.User.UserName = this.UserName;
-            castor.User.UserLastName = this.UserLastName;
-            castor.User.UserEmail = this.UserEmail;
-            castor.User.UserPassword = this.UserPassword;
-            castor.User.IsManager = this.IsManager;
-            castor.User.UserGender = this.UserGender;
-            castor.User.IsReported = this.IsReported;
-            castor.User.IsBlocked = this.IsBlocked;
+        
+           
 
             return castor;
 
