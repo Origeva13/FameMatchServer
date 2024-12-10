@@ -17,6 +17,7 @@ public class FameMatchAPIController : ControllerBase
     {
         this.context = context;
         this.webHostEnvironment = env;
+
     }
 
     [HttpGet]
@@ -165,7 +166,83 @@ public class FameMatchAPIController : ControllerBase
 
     }
 
+    [HttpPost("UpdateCastor")]
+    public IActionResult UpdateCastor([FromBody] DTO.Castor userDto)
+    {
+        try
+        {
+            //Check if who is logged in
+            string? userEmail = HttpContext.Session.GetString("loggedInCastor");
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized("User is not logged in");
+            }
 
+            //Get model user class from DB with matching email. 
+            Models.Castor? theUser = context.GetCastor(userEmail);
+            //Clear the tracking of all objects to avoid double tracking
+            context.ChangeTracker.Clear();
 
+            //Check if the user that is logged in is the same user of the task
+            //this situation is ok only if the user is a manager
+            if (theUser == null || (userDto.UserId != theUser.UserId))
+            {
+                return Unauthorized("Failed to update user");
+            }
+
+            Models.Castor appUser = userDto.GetModel();
+
+            context.Entry(appUser).State = EntityState.Modified;
+
+            context.SaveChanges();
+
+            //Task was updated!
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+    [HttpPost("UpdateCasted")]
+    public IActionResult UpdateCasted([FromBody] DTO.Casted userDto)
+    {
+        try
+        {
+            //Check if who is logged in
+            string? userEmail = HttpContext.Session.GetString("loggedInCasted");
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized("User is not logged in");
+            }
+
+            //Get model user class from DB with matching email. 
+            Models.Casted? theUser = context.GetCasted(userEmail);
+            //Clear the tracking of all objects to avoid double tracking
+            context.ChangeTracker.Clear();
+
+            //Check if the user that is logged in is the same user of the task
+            //this situation is ok only if the user is a manager
+            if (theUser == null || (userDto.UserId != theUser.UserId))
+            {
+                return Unauthorized("Failed to update user");
+            }
+
+            Models.Casted appUser = userDto.GetModel();
+
+            context.Entry(appUser).State = EntityState.Modified;
+
+            context.SaveChanges();
+
+            //Task was updated!
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 }
 

@@ -23,6 +23,10 @@ public partial class FameMatchDbContext : DbContext
         else
             return this.Castors.Where(s => s.UserId == u.UserId).Include(s => s.User).FirstOrDefault();
     }
-
+    public User? GetUser(string email)
+    {
+        return this.Users.Where(u => u.UserEmail == email)
+                            .FirstOrDefault();
+    }
 }
 
