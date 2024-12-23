@@ -24,6 +24,7 @@ namespace FameMatchServer.DTO
             var BaseUser = base.GetModel();
             var castor = new Models.Castor
             {
+               UserId = this.UserId,
                CompanyName=this.CompanyName,
                NumOfLisence=this.NumOfLisence,
                User = BaseUser

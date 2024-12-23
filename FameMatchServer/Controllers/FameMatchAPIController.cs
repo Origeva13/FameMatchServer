@@ -196,7 +196,7 @@ public class FameMatchAPIController : ControllerBase
 
             context.SaveChanges();
 
-            //Task was updated!
+            //Profile was updated!
             return Ok();
         }
         catch (Exception ex)

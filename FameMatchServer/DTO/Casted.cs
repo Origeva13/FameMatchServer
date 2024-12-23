@@ -45,7 +45,8 @@ namespace FameMatchServer.DTO
         {
             var BaseUser = base.GetModel();
             var casted = new Models.Casted 
-            { 
+            {  
+                UserId = this.UserId,
                 UserAge = this.UserAge,
                 UserLocation = this.UserLocation,
                 UserHigth = this.UserHigth,
