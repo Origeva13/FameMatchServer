@@ -244,6 +244,35 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpGet("GetCasted")]
+    public IActionResult GetCasted()
+    {
+        try
+        {
+            //Check if who is logged in
+            string? userEmail = HttpContext.Session.GetString("loggedInCasted");
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized("User is not logged in");
+            }
 
+            //Get model user class from DB with matching email. 
+            Models.Casted? theUser = context.GetCasted(userEmail);
+
+            if (theUser == null)
+            {
+                return Unauthorized("User is not logged in");
+            }
+            //User was found!
+            DTO.Casted dtoUser = new DTO.Casted(theUser);
+            //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+            return Ok(dtoUser);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 }
 
