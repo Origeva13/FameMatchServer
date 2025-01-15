@@ -244,35 +244,44 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
-    [HttpGet("GetCasted")]
-    public IActionResult GetCasted()
+    [HttpGet("GetAllCasteds")]
+    public IActionResult GetAllCasteds()
     {
         try
         {
-            //Check if who is logged in
-            string? userEmail = HttpContext.Session.GetString("loggedInCasted");
-            if (string.IsNullOrEmpty(userEmail))
+            List<DTO.Casted> castedList = new List<DTO.Casted>();
+            List<Models.Casted> modelCasteds = context.Casteds.ToList();
+            foreach (Models.Casted casted in modelCasteds)
             {
-                return Unauthorized("User is not logged in");
+                DTO.Casted dtoCasted = new DTO.Casted(casted)
+                {
+                    UserId = casted.UserId,
+                    UserName = casted.User.UserName,
+                    UserLastName = casted.User.UserLastName,
+                    UserEmail = casted.User.UserEmail,
+                    UserPassword = casted.User.UserPassword,
+                    IsManager = casted.User.IsManager,
+                    UserGender = casted.User.UserGender,
+                    IsReported = casted.User.IsReported,
+                    IsBlocked = casted.User.IsBlocked,
+                    UserAge = casted.UserAge,
+                    UserLocation = casted.UserLocation,
+                    UserHigth = casted.UserHigth,
+                    UserHair = casted.UserHair,
+                    UserEyes = casted.UserEyes,
+                    UserBody = casted.UserBody,
+                    UserSkin = casted.UserSkin,
+                    AboutMe = casted.AboutMe
+                };
+                castedList.Add(dtoCasted);
             }
-
-            //Get model user class from DB with matching email. 
-            Models.Casted? theUser = context.GetCasted(userEmail);
-
-            if (theUser == null)
-            {
-                return Unauthorized("User is not logged in");
-            }
-            //User was found!
-            DTO.Casted dtoUser = new DTO.Casted(theUser);
-            //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
-            return Ok(dtoUser);
+            return Ok(castedList);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
-
     }
+
 }
 
