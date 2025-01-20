@@ -250,29 +250,11 @@ public class FameMatchAPIController : ControllerBase
         try
         {
             List<DTO.Casted> castedList = new List<DTO.Casted>();
-            List<Models.Casted> modelCasteds = context.Casteds.ToList();
+            List<Models.Casted> modelCasteds = context.Casteds.Include(c => c.User).ToList();
             foreach (Models.Casted casted in modelCasteds)
             {
-                DTO.Casted dtoCasted = new DTO.Casted(casted)
-                {
-                    UserId = casted.UserId,
-                    UserName = casted.User.UserName,
-                    UserLastName = casted.User.UserLastName,
-                    UserEmail = casted.User.UserEmail,
-                    UserPassword = casted.User.UserPassword,
-                    IsManager = casted.User.IsManager,
-                    UserGender = casted.User.UserGender,
-                    IsReported = casted.User.IsReported,
-                    IsBlocked = casted.User.IsBlocked,
-                    UserAge = casted.UserAge,
-                    UserLocation = casted.UserLocation,
-                    UserHigth = casted.UserHigth,
-                    UserHair = casted.UserHair,
-                    UserEyes = casted.UserEyes,
-                    UserBody = casted.UserBody,
-                    UserSkin = casted.UserSkin,
-                    AboutMe = casted.AboutMe
-                };
+                DTO.Casted dtoCasted = new DTO.Casted(casted);
+                
                 castedList.Add(dtoCasted);
             }
             return Ok(castedList);
