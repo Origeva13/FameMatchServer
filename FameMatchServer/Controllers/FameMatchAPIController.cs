@@ -265,5 +265,84 @@ public class FameMatchAPIController : ControllerBase
         }
     }
 
+    [HttpGet("GetAllCastors")]
+    public IActionResult GetAllCastors()
+    {
+        try
+        {
+            List<DTO.Castor> castorList = new List<DTO.Castor>();
+            List<Models.Castor> modelCastors = context.Castors.Include(c => c.User).ToList();
+            foreach (Models.Castor castor in modelCastors)
+            {
+                DTO.Castor dtoCastor = new DTO.Castor(castor);
+
+                castorList.Add(dtoCastor);
+            }
+            return Ok(castorList);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpGet("GetUsers")]
+    public IActionResult GetUsers()
+    {
+        try
+        {
+            ////Check if who is logged in
+            //string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            //if (string.IsNullOrEmpty(userEmail))
+            //{
+            //    return Unauthorized("User is not logged in");
+            //}
+
+            //Read all users
+
+            List<Models.User> list = context.GetUsers();
+
+            List<DTO.User> users = new List<DTO.User>();
+
+            foreach (Models.User u in list)
+            {
+                DTO.User user = new DTO.User(u);
+
+                users.Add(user);
+            }
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+    [HttpPost("Block")]
+    public IActionResult Block([FromBody] DTO.User u)
+    {
+        try
+        {
+            string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized("User is not logged in");
+            }
+
+            //Create model user class
+            Models.User user = context.GetUser1(u.UserId);
+            user.IsBlocked = u.IsBlocked;
+            context.Entry(user).State = EntityState.Modified;
+
+            context.SaveChanges();
+            //DTO.U
+            //Task was updated!
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 }
 
