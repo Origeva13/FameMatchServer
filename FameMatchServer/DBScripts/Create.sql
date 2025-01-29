@@ -143,6 +143,10 @@ values(4,'vvvvv',124)
 insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,UserGender,IsReported,IsBlocked) 
 values('Amit', 'Bazir', 'Amit@gmail.com','A123',1,'female',0,0)
 insert into Casted(UserId,UserAge,UserBody,UserEyes,UserHair,UserHigth,UserLocation,UserSkin,AboutMe)
-values(5,16,'skiny','blue','blonde',183,'Hod Hasharon','white','ddddddd')
+values(5,19,'skiny','Green','Bronte',180,'Hod Hasharon','white','ddddddd')
+insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,UserGender,IsReported,IsBlocked) 
+values('A', 'B', 'AB@gmail.com','123',1,'female',0,0)
+insert into Casted(UserId,UserAge,UserBody,UserEyes,UserHair,UserHigth,UserLocation,UserSkin,AboutMe)
+values(6,19,'skiny','Green','Bronte',180,'Hod Hasharon','white','ddddddd')
 select*from Users
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force

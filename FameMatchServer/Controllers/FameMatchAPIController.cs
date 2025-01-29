@@ -2,6 +2,8 @@
 using FameMatchServer.Models;
 using FameMatchServer.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using System.Data;
 namespace FameMatchServer.Controllers;
 
 [Route("api")]
@@ -344,5 +346,29 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpPost]
+    [Route("AddAudition")]
+    public async Task<IActionResult> AddAudition([FromBody] DTO.Audition audition)
+    {
+        try
+       
+        {
+            //Create model audition class
+            Models.Audition modelsAudition = audition.GetModel();
+
+            context.Auditions.Add(modelsAudition);
+            context.SaveChanges();
+
+            //Audition was added!
+            DTO.Audition dtoAudition = new DTO.Audition(modelsAudition);
+            return Ok(dtoAudition);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+ 
 }
 
