@@ -336,8 +336,6 @@ public class FameMatchAPIController : ControllerBase
             context.Entry(user).State = EntityState.Modified;
 
             context.SaveChanges();
-            //DTO.U
-            //Task was updated!
             return Ok();
         }
         catch (Exception ex)
