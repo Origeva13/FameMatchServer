@@ -324,12 +324,6 @@ public class FameMatchAPIController : ControllerBase
     {
         try
         {
-            string? userEmail = HttpContext.Session.GetString("loggedInUser");
-            if (string.IsNullOrEmpty(userEmail))
-            {
-                return Unauthorized("User is not logged in");
-            }
-
             //Create model user class
             Models.User user = context.GetUser1(u.UserId);
             user.IsBlocked = u.IsBlocked;
@@ -344,29 +338,48 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
-    [HttpPost]
-    [Route("AddAudition")]
-    public async Task<IActionResult> AddAudition([FromBody] DTO.Audition audition)
+    //[HttpPost]
+    //[Route("AddAudition")]
+    //public async Task<IActionResult> AddAudition([FromBody] DTO.Audition audition)
+    //{
+    //    try
+       
+    //    {
+    //        //Create model audition class
+    //        Models.Audition modelsAudition = audition.GetModel();
+
+    //        context.Auditions.Add(modelsAudition);
+    //        context.SaveChanges();
+
+    //        //Audition was added!
+    //        DTO.Audition dtoAudition = new DTO.Audition(modelsAudition);
+    //        return Ok(dtoAudition);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+    //}
+    [HttpPost("AddAudition")]
+    public IActionResult AddAudition([FromBody] DTO.Audition a)
     {
         try
-       
         {
-            //Create model audition class
-            Models.Audition modelsAudition = audition.GetModel();
-
-            context.Auditions.Add(modelsAudition);
+            //Create model user class
+            Models.Audition audition = a.GetModel();
+            
+            context.Auditions.Add(audition);
             context.SaveChanges();
-
-            //Audition was added!
-            DTO.Audition dtoAudition = new DTO.Audition(modelsAudition);
-            return Ok(dtoAudition);
+            DTO.Audition newAudition = new DTO.Audition(audition);
+            return Ok(newAudition);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
+
     }
 
- 
+
 }
 
