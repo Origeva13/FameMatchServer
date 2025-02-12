@@ -338,28 +338,6 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
-    //[HttpPost]
-    //[Route("AddAudition")]
-    //public async Task<IActionResult> AddAudition([FromBody] DTO.Audition audition)
-    //{
-    //    try
-       
-    //    {
-    //        //Create model audition class
-    //        Models.Audition modelsAudition = audition.GetModel();
-
-    //        context.Auditions.Add(modelsAudition);
-    //        context.SaveChanges();
-
-    //        //Audition was added!
-    //        DTO.Audition dtoAudition = new DTO.Audition(modelsAudition);
-    //        return Ok(dtoAudition);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return BadRequest(ex.Message);
-    //    }
-    //}
     [HttpPost("AddAudition")]
     public IActionResult AddAudition([FromBody] DTO.Audition a)
     {
@@ -379,7 +357,26 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpGet("GetAllAuditions")]
+    public IActionResult GetAllAuditions()
+    {
+        try
+        {
+            List<DTO.Audition> auditionList = new List<DTO.Audition>();
+            List<Models.Audition> modelAuditions = context.Auditions.ToList();
+            foreach (Models.Audition audition in modelAuditions)
+            {
+                DTO.Audition dtoAudition = new DTO.Audition(audition);
 
+                auditionList.Add(dtoAudition);
+            }
+            return Ok(auditionList);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
 }
 
