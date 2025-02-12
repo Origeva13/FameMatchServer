@@ -41,14 +41,14 @@ public partial class FameMatchDbContext : DbContext
     {
         modelBuilder.Entity<Audition>(entity =>
         {
-            entity.HasKey(e => e.AudId).HasName("PK__Audition__D2F73E1507785EFD");
+            entity.HasKey(e => e.AudId).HasName("PK__Audition__D2F73E1584D08C0F");
 
             entity.HasOne(d => d.User).WithMany(p => p.Auditions).HasConstraintName("FK__Auditions__UserI__33D4B598");
         });
 
         modelBuilder.Entity<Casted>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Casted__1788CC4C8F9FAE05");
+            entity.HasKey(e => e.UserId).HasName("PK__Casted__1788CC4CB9BDF917");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -59,7 +59,7 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<Castor>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Castor__1788CC4CB377E852");
+            entity.HasKey(e => e.UserId).HasName("PK__Castor__1788CC4C7A09D6C8");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -70,12 +70,12 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BFC87333DA");
+            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BFED9A0BD7");
         });
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__Message__C87C0C9C524FB190");
+            entity.HasKey(e => e.MessageId).HasName("PK__Message__C87C0C9C4C37F427");
 
             entity.HasOne(d => d.Reciver).WithMany(p => p.MessageRecivers).HasConstraintName("FK__Message__Reciver__38996AB5");
 
@@ -84,7 +84,7 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<Picture>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Pictures__1788CC4CC1344F8F");
+            entity.HasKey(e => e.UserId).HasName("PK__Pictures__1788CC4C2ED4FEBF");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -97,7 +97,7 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<Reporet>(entity =>
         {
-            entity.HasKey(e => e.ReporetId).HasName("PK__Reporet__B69BBCE8F44F04A2");
+            entity.HasKey(e => e.ReporetId).HasName("PK__Reporet__B69BBCE8A2A3C728");
 
             entity.HasOne(d => d.Reported).WithMany(p => p.ReporetReporteds).HasConstraintName("FK__Reporet__Reporte__30F848ED");
 
@@ -106,14 +106,14 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<Tip>(entity =>
         {
-            entity.HasKey(e => e.TipId).HasName("PK__Tip__2DB1A1C88E91D98F");
+            entity.HasKey(e => e.TipId).HasName("PK__Tip__2DB1A1C8BCF4CBC3");
 
             entity.HasOne(d => d.User).WithMany(p => p.Tips).HasConstraintName("FK__Tip__UserId__3B75D760");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CD6C546D1");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C41C3D0B3");
         });
 
         OnModelCreatingPartial(modelBuilder);

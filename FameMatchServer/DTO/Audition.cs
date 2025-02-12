@@ -32,6 +32,10 @@ namespace FameMatchServer.DTO
       
         public string? AudSkin { get; set; }
 
+        public string? AudName { get; set; }
+
+        public string? AudGender {  get; set; }
+
         public bool IsPublic { get; set; }
 
         public Audition() { }
@@ -47,7 +51,9 @@ namespace FameMatchServer.DTO
             this.AudEyes = A.AudEyes;
             this.UserBody = A.UserBody;
             this.AudSkin = A.AudSkin;
+            this.AudName = A.AudName;
             this.IsPublic = A.IsPublic;
+            this.AudGender = A.AudGender;
         }
         public Models.Audition GetModel()
         {
@@ -62,7 +68,9 @@ namespace FameMatchServer.DTO
             A.AudEyes= this.AudEyes;
             A.UserBody = this.UserBody;
             A.AudSkin = this.AudSkin;
+            A.AudName = this.AudName;
             A.IsPublic = this.IsPublic;
+            A.AudGender = this.AudGender;
             return A;
         }
         //public virtual Castor? User { get; set; }

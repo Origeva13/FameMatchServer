@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FameMatchServer.Models;
 
-[Index("UserEmail", Name = "UQ__Users__08638DF8756F59F4", IsUnique = true)]
+[Index("UserEmail", Name = "UQ__Users__08638DF8311CCA5C", IsUnique = true)]
 public partial class User
 {
     [Key]

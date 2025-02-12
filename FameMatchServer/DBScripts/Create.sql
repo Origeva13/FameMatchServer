@@ -71,6 +71,8 @@ AudHair nvarchar(50),
 AudEyes nvarchar (50),
 UserBody nvarchar(50),
 AudSkin nvarchar(50),
+AudName nvarchar(50),
+AudGender nvarchar(50),
 IsPublic bit Not Null Default 0
 )
 
@@ -148,5 +150,5 @@ insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,User
 values('A', 'B', 'AB@gmail.com','123',1,'female',0,0)
 insert into Casted(UserId,UserAge,UserBody,UserEyes,UserHair,UserHigth,UserLocation,UserSkin,AboutMe)
 values(6,19,'skiny','Green','Bronte',180,'Hod Hasharon','white','ddddddd')
-select*from Users
+select*from Auditions
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force

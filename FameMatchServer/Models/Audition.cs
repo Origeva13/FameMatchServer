@@ -35,6 +35,12 @@ public partial class Audition
     [StringLength(50)]
     public string? AudSkin { get; set; }
 
+    [StringLength(50)]
+    public string? AudName { get; set; }
+
+    [StringLength(50)]
+    public string? AudGender { get; set; }
+
     public bool IsPublic { get; set; }
 
     [ForeignKey("UserId")]
