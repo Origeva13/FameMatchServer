@@ -377,6 +377,103 @@ public class FameMatchAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    [HttpGet("GetAllEmails")]
+    public IActionResult GetAllEmails()
+    {
+        try
+        {
+            //Check if who is logged in
+            //string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            //if (string.IsNullOrEmpty(userEmail))
+            //{
+            //    return Unauthorized("User is not logged in");
+            //}
 
+            //Read all emails
+
+            List<string> list = context.GetAllEmails();
+
+            List<string> allEmails = new List<string>();
+
+            foreach (string p in list)
+            {
+                string post = new string(p);
+
+                allEmails.Add(post);
+            }
+            return Ok(allEmails);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+
+    [HttpPost("UpdateUserPassword")]
+    public IActionResult UpdateUserPassword([FromBody] DTO.User userDto)
+    {
+        try
+        {
+            //Check if who is logged in
+            //string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            //if (string.IsNullOrEmpty(userEmail))
+            //{
+            //    return Unauthorized("User is not logged in");
+            //}
+
+            //Get model user class from DB with matching email. 
+            Models.User? theUser = context.GetUser(userDto.UserEmail);
+            //Clear the tracking of all objects to avoid double tracking
+            context.ChangeTracker.Clear();
+
+            //Check if the user that is logged in is the same user of the task
+            //this situation is ok only if the user is a manager
+            if (theUser == null || (userDto.UserId != theUser.UserId))
+            {
+                return Unauthorized("Failed to update user");
+            }
+
+            Models.User appUser = userDto.GetModel();
+
+            context.Entry(appUser).State = EntityState.Modified;
+
+            context.SaveChanges();
+
+            //Task was updated!
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+    [HttpGet("GetUserByEmail")]
+    public IActionResult GetUserByEmail([FromQuery] string email)
+    {
+        try
+        {
+            //Check who is logged in
+            //string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            //if (string.IsNullOrEmpty(userEmail))
+            //{
+            //    return Unauthorized("User is not logged in");
+            //}
+
+            //Read posts of the user
+
+            Models.User u = context.GetUserEmail(email);
+            DTO.User user = new DTO.User(u);
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 }
+
+
 

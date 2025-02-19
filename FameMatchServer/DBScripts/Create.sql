@@ -34,7 +34,8 @@ Create Table Castor
 UserId INT PRIMARY KEY,
 Foreign Key(UserId) REFERENCES Users(UserId) ,
 CompanyName nvarchar (400) Not Null,
-NumOfLisence int Not Null
+NumOfLisence int Not Null,
+IsAprooved bit Not Null Default 0
 )
 
 Create Table Casted
@@ -150,5 +151,9 @@ insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,User
 values('A', 'B', 'AB@gmail.com','123',1,'female',0,0)
 insert into Casted(UserId,UserAge,UserBody,UserEyes,UserHair,UserHigth,UserLocation,UserSkin,AboutMe)
 values(6,19,'skiny','Green','Bronte',180,'Hod Hasharon','white','ddddddd')
-select*from Auditions
+insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,UserGender,IsReported,IsBlocked) 
+values('A', 'a', 'A@gmail.com','ori1geva2$!',1,'male',0,0)
+insert into Castor(UserId,CompanyName,NumOfLisence,IsAprooved)
+values(5,'Acompany',30,1)
+select*from Users
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force

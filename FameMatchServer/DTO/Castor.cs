@@ -12,12 +12,15 @@ namespace FameMatchServer.DTO
 
         public int NumOfLisence { get; set; }
 
+        public bool IsAprooved { get; set; }
+
         public Castor() { }
         public Castor(Models.Castor CA) : base(CA.User)
         {
 
             this.CompanyName = CA.CompanyName;
             this.NumOfLisence =CA.NumOfLisence;
+            this.IsAprooved = CA.IsAprooved;
         }
         public Models.Castor GetModel()
         {
@@ -27,7 +30,8 @@ namespace FameMatchServer.DTO
                UserId = this.UserId,
                CompanyName=this.CompanyName,
                NumOfLisence=this.NumOfLisence,
-               User = BaseUser
+                IsAprooved = this.IsAprooved,
+                User = BaseUser
             };
         
            

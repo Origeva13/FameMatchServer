@@ -17,6 +17,8 @@ public partial class Castor
 
     public int NumOfLisence { get; set; }
 
+    public bool IsAprooved { get; set; }
+
     [InverseProperty("User")]
     public virtual ICollection<Audition> Auditions { get; set; } = new List<Audition>();
 

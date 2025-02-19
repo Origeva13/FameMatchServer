@@ -41,25 +41,25 @@ public partial class FameMatchDbContext : DbContext
     {
         modelBuilder.Entity<Audition>(entity =>
         {
-            entity.HasKey(e => e.AudId).HasName("PK__Audition__D2F73E1584D08C0F");
+            entity.HasKey(e => e.AudId).HasName("PK__Audition__D2F73E1554339E8F");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Auditions).HasConstraintName("FK__Auditions__UserI__33D4B598");
+            entity.HasOne(d => d.User).WithMany(p => p.Auditions).HasConstraintName("FK__Auditions__UserI__34C8D9D1");
         });
 
         modelBuilder.Entity<Casted>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Casted__1788CC4CB9BDF917");
+            entity.HasKey(e => e.UserId).HasName("PK__Casted__1788CC4C3D85D654");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
             entity.HasOne(d => d.User).WithOne(p => p.Casted)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Casted__UserId__2D27B809");
+                .HasConstraintName("FK__Casted__UserId__2E1BDC42");
         });
 
         modelBuilder.Entity<Castor>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Castor__1788CC4C7A09D6C8");
+            entity.HasKey(e => e.UserId).HasName("PK__Castor__1788CC4CCAAFF49D");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -70,50 +70,50 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BFED9A0BD7");
+            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BF6CA07AE3");
         });
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__Message__C87C0C9C4C37F427");
+            entity.HasKey(e => e.MessageId).HasName("PK__Message__C87C0C9CA8C2D669");
 
-            entity.HasOne(d => d.Reciver).WithMany(p => p.MessageRecivers).HasConstraintName("FK__Message__Reciver__38996AB5");
+            entity.HasOne(d => d.Reciver).WithMany(p => p.MessageRecivers).HasConstraintName("FK__Message__Reciver__398D8EEE");
 
-            entity.HasOne(d => d.Sender).WithMany(p => p.MessageSenders).HasConstraintName("FK__Message__SenderI__37A5467C");
+            entity.HasOne(d => d.Sender).WithMany(p => p.MessageSenders).HasConstraintName("FK__Message__SenderI__38996AB5");
         });
 
         modelBuilder.Entity<Picture>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Pictures__1788CC4C2ED4FEBF");
+            entity.HasKey(e => e.UserId).HasName("PK__Pictures__1788CC4C41A61458");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.File).WithMany(p => p.Pictures).HasConstraintName("FK__Pictures__FileId__412EB0B6");
+            entity.HasOne(d => d.File).WithMany(p => p.Pictures).HasConstraintName("FK__Pictures__FileId__4222D4EF");
 
             entity.HasOne(d => d.User).WithOne(p => p.Picture)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Pictures__UserId__403A8C7D");
+                .HasConstraintName("FK__Pictures__UserId__412EB0B6");
         });
 
         modelBuilder.Entity<Reporet>(entity =>
         {
-            entity.HasKey(e => e.ReporetId).HasName("PK__Reporet__B69BBCE8A2A3C728");
+            entity.HasKey(e => e.ReporetId).HasName("PK__Reporet__B69BBCE8BA15EB6B");
 
-            entity.HasOne(d => d.Reported).WithMany(p => p.ReporetReporteds).HasConstraintName("FK__Reporet__Reporte__30F848ED");
+            entity.HasOne(d => d.Reported).WithMany(p => p.ReporetReporteds).HasConstraintName("FK__Reporet__Reporte__31EC6D26");
 
-            entity.HasOne(d => d.User).WithMany(p => p.ReporetUsers).HasConstraintName("FK__Reporet__UserId__300424B4");
+            entity.HasOne(d => d.User).WithMany(p => p.ReporetUsers).HasConstraintName("FK__Reporet__UserId__30F848ED");
         });
 
         modelBuilder.Entity<Tip>(entity =>
         {
-            entity.HasKey(e => e.TipId).HasName("PK__Tip__2DB1A1C8BCF4CBC3");
+            entity.HasKey(e => e.TipId).HasName("PK__Tip__2DB1A1C80F524554");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Tips).HasConstraintName("FK__Tip__UserId__3B75D760");
+            entity.HasOne(d => d.User).WithMany(p => p.Tips).HasConstraintName("FK__Tip__UserId__3C69FB99");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C41C3D0B3");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CCC063A4B");
         });
 
         OnModelCreatingPartial(modelBuilder);

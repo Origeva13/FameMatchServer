@@ -37,6 +37,15 @@ public partial class FameMatchDbContext : DbContext
         return this.Users.Where(u => u.UserId == id)
                             .FirstOrDefault();
     }
+    public List<string> GetAllEmails()
+    {
+        return this.Users.Select(u => u.UserEmail).ToList();
+    }
+    public Models.User? GetUserEmail(string email)
+    {
+        return this.Users.Where(u => u.UserEmail == email)
+                            .FirstOrDefault();
+    }
 
 }
 
