@@ -155,5 +155,9 @@ insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,User
 values('A', 'a', 'A@gmail.com','ori1geva2$!',1,'male',0,0)
 insert into Castor(UserId,CompanyName,NumOfLisence,IsAprooved)
 values(5,'Acompany',30,1)
-select*from Users
+insert into Users(UserName, UserLastName, UserEmail, UserPassword,IsManager,UserGender,IsReported,IsBlocked) 
+values('L', 'l', 'L@gmail.com','ori1geva2$!',1,'male',0,1)
+insert into Castor(UserId,CompanyName,NumOfLisence,IsAprooved)
+values(8,'Lcompany',3000,1)
+select*from Castor
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force

@@ -473,6 +473,25 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpPost("Accept")]
+    public IActionResult Accept([FromBody] DTO.Castor c)
+    {
+        try
+        {
+            //Create model user class
+            Models.Castor castor = context.GetCastor(c.UserEmail);
+            castor.IsAprooved = c.IsAprooved;
+            context.Entry(castor).State = EntityState.Modified;
+
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
 }
 
 
