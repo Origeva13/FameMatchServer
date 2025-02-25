@@ -454,15 +454,6 @@ public class FameMatchAPIController : ControllerBase
     {
         try
         {
-            //Check who is logged in
-            //string? userEmail = HttpContext.Session.GetString("loggedInUser");
-            //if (string.IsNullOrEmpty(userEmail))
-            //{
-            //    return Unauthorized("User is not logged in");
-            //}
-
-            //Read posts of the user
-
             Models.User u = context.GetUserEmail(email);
             DTO.User user = new DTO.User(u);
             return Ok(user);
@@ -479,8 +470,8 @@ public class FameMatchAPIController : ControllerBase
         try
         {
             //Create model user class
-            Models.Castor castor = context.GetCastor(c.UserEmail);
-            castor.IsAprooved = c.IsAprooved;
+            Models.Castor castor = c.GetModel();
+            //castor.IsAprooved = c.IsAprooved;
             context.Entry(castor).State = EntityState.Modified;
 
             context.SaveChanges();
