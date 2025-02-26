@@ -119,52 +119,52 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
-    [HttpPost("CastedRegister")]
-    public IActionResult CastedRegister([FromBody] DTO.Casted userDto)
+    [HttpPost("registerCasted")]
+    public IActionResult RegisterCasted([FromBody] DTO.Casted castedDto)
     {
         try
         {
             HttpContext.Session.Clear(); //Logout any previous login attempt
 
-            //Create model user class
-            Models.Casted modelsCasted = userDto.GetModel();
+            //Create model parent class to be written in the DB
+            Models.Casted modelsCasted = castedDto.GetModel();
 
             context.Casteds.Add(modelsCasted);
             context.SaveChanges();
 
             //User was added!
-            DTO.Casted dtoUser = new DTO.Casted(modelsCasted);
-            //////dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
-            return Ok(dtoUser);
+            DTO.Casted dtoCasted = new DTO.Casted(modelsCasted);
+            return Ok(dtoCasted);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
 
+
     }
-    [HttpPost("CastorRegister")]
-    public IActionResult CastorRegister([FromBody] DTO.Castor userDto)
+    [HttpPost("registerCastor")]
+    public IActionResult RegisterCastor([FromBody] DTO.Castor castordto)
     {
         try
         {
             HttpContext.Session.Clear(); //Logout any previous login attempt
 
-            //Create model user class
-            Models.Castor modelsCastor = userDto.GetModel();
+            //Create model babysiter class to be written in the DB
+            Models.Castor modelsCastor = castordto.GetModel();
 
             context.Castors.Add(modelsCastor);
             context.SaveChanges();
 
             //User was added!
-            DTO.Castor dtoUser = new DTO.Castor(modelsCastor);
-            //////dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
-            return Ok(dtoUser);
+            DTO.Castor dtoCastor = new DTO.Castor(modelsCastor);
+            return Ok(dtoCastor);
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
+
 
     }
 
@@ -473,6 +473,25 @@ public class FameMatchAPIController : ControllerBase
             Models.Castor castor = c.GetModel();
             //castor.IsAprooved = c.IsAprooved;
             context.Entry(castor).State = EntityState.Modified;
+
+            context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
+    [HttpPost("Declaine")]
+    public IActionResult Declaine([FromBody] DTO.Castor c)
+    {
+        try
+        {
+            //Create model user class
+            Models.Castor castor = c.GetModel();
+            context.Entry(castor).State = EntityState.Modified;
+            context.Entry(castor.User).State = EntityState.Modified;
 
             context.SaveChanges();
             return Ok();
