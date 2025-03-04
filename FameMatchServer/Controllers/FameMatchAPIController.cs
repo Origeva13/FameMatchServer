@@ -502,6 +502,21 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpGet("GetUserByAudition")]
+    public IActionResult GetUserByAudition([FromQuery] int id)
+    {
+        try
+        {
+            //returns user by user id
+            Models.Castor u = context.GetUserByAudition(id);
+            DTO.Castor user = new DTO.Castor(u);
+            return Ok(user);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }
 
 

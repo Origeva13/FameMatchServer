@@ -47,5 +47,11 @@ public partial class FameMatchDbContext : DbContext
                             .FirstOrDefault();
     }
 
+    public Models.Castor? GetUserByAudition(int auditionId)
+    {
+        Castor? c= this.Castors.Include(u=>u.User).Where(u => u.Auditions.Where(c=>c.AudId==auditionId).Any())
+                            .FirstOrDefault();
+        return c;
+    }
 }
 
