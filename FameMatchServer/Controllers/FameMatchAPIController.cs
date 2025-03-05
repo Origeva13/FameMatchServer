@@ -473,7 +473,7 @@ public class FameMatchAPIController : ControllerBase
             Models.Castor castor = c.GetModel();
             //castor.IsAprooved = c.IsAprooved;
             context.Entry(castor).State = EntityState.Modified;
-
+            context.Entry(castor.User).State = EntityState.Modified;
             context.SaveChanges();
             return Ok();
         }
