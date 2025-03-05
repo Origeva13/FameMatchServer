@@ -41,6 +41,10 @@ public partial class FameMatchDbContext : DbContext
     {
         return this.Users.Select(u => u.UserEmail).ToList();
     }
+    public List<Audition> GetAllAuditions()
+    {
+        return this.Auditions.ToList();
+    }
     public Models.User? GetUserEmail(string email)
     {
         return this.Users.Where(u => u.UserEmail == email)

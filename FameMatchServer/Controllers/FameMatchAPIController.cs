@@ -4,6 +4,7 @@ using FameMatchServer.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace FameMatchServer.Controllers;
 
 [Route("api")]
@@ -516,6 +517,32 @@ public class FameMatchAPIController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+    [HttpGet("GetUserAuditions")]
+    public IActionResult GetUserAuditions([FromQuery] int id)
+    {
+        try
+        {
+            List<Models.Audition> list = context.GetAllAuditions();
+
+            List<DTO.Audition> UserAudition = new List<DTO.Audition>();
+
+            foreach (Models.Audition a in list)
+            {
+                if(a.UserId == id)
+                {
+                    DTO.Audition audition = new DTO.Audition(a);
+
+                    UserAudition.Add(audition);
+                } 
+            }
+            return Ok(UserAudition);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
     }
 }
 
