@@ -450,6 +450,37 @@ public class FameMatchAPIController : ControllerBase
         }
 
     }
+    [HttpPost("UpdateAudition")]
+    public IActionResult UpdateAudition([FromBody] DTO.Audition audDto)
+    {
+        try
+        {
+            Models.Audition? theAud = context.GetAudition(audDto.AudId);
+            //Clear the tracking of all objects to avoid double tracking
+            context.ChangeTracker.Clear();
+
+            //Check if the user that is logged in is the same user of the task
+            //this situation is ok only if the user is a manager
+            if (theAud == null || (audDto.AudId != theAud.AudId))
+            {
+                return Unauthorized("Failed to update user");
+            }
+
+            Models.Audition appAud = audDto.GetModel();
+
+            context.Entry(appAud).State = EntityState.Modified;
+
+            context.SaveChanges();
+
+            //Task was updated!
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+    }
     [HttpGet("GetUserByEmail")]
     public IActionResult GetUserByEmail([FromQuery] string email)
     {

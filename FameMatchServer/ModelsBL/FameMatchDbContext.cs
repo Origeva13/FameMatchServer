@@ -28,6 +28,11 @@ public partial class FameMatchDbContext : DbContext
         return this.Users.Where(u => u.UserEmail == email)
                             .FirstOrDefault();
     }
+    public Audition? GetAudition(int id)
+    {
+        return this.Auditions.Where(a => a.AudId == id)
+                            .FirstOrDefault();
+    }
     public List<User> GetUsers()
     {
         return this.Users.ToList();
