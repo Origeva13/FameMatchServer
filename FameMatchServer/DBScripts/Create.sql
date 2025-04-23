@@ -106,8 +106,9 @@ FileExt Nvarchar(50) Not Null
 
 Create Table Pictures
 (
-UserId  int Primary Key References Users(UserId),
+UserId  int Foreign Key References Users(UserId),
 FileId int Foreign Key References Files(FileId)
+primary key (UserId,FileId)
 )
 
 CREATE LOGIN [FameMatchAdminLogin] WITH PASSWORD ='ori1geva2';

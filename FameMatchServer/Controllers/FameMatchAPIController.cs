@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq.Expressions;
 namespace FameMatchServer.Controllers;
 
 [Route("api")]
@@ -38,7 +39,7 @@ public class FameMatchAPIController : ControllerBase
         DTO.User? theUser = null;
 
         // Attempt to find the user in the database by email
-        Models.User? user = context.Users
+        Models.User? user = context.Users.Include(u => u.Files)
             .Where(u => u.UserEmail == email)
             .FirstOrDefault();
 
@@ -52,7 +53,7 @@ public class FameMatchAPIController : ControllerBase
         // Check if the user is a Casted
         Models.Casted? userCasted = context.Casteds
             .Where(c => c.UserId == id)
-            .Include(c => c.User)
+            .Include(c => c.User).ThenInclude(u => u.Files)
             .FirstOrDefault();
 
         if (userCasted != null)
@@ -62,7 +63,7 @@ public class FameMatchAPIController : ControllerBase
         else
         {
             // If not Casted, check if user is a Castor
-            Models.Castor? userCastor = context.Castors
+            Models.Castor? userCastor = context.Castors.Include(c => c.User).ThenInclude(u => u.Files)
                 .Where(c => c.UserId == id)
                 .FirstOrDefault();
 
@@ -103,6 +104,7 @@ public class FameMatchAPIController : ControllerBase
 
                 // Login succeeded, store user email in session
                 HttpContext.Session.SetString("loggedInCasted", dtoUser.UserEmail);
+                HttpContext.Session.SetString("loggedInUser", dtoUser.UserEmail);
 
                 return Ok(dtoUser);
             }
@@ -116,6 +118,7 @@ public class FameMatchAPIController : ControllerBase
 
                 // Login succeeded, store user email in session
                 HttpContext.Session.SetString("loggedInCastor", dtoUser.UserEmail);
+                HttpContext.Session.SetString("loggedInUser", dtoUser.UserEmail);
 
                 return Ok(dtoUser);
             }
@@ -752,7 +755,122 @@ public class FameMatchAPIController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    #region Photos
+    [HttpPost("UploadImage")]
+    public async Task<IActionResult> UploadImageAsync(IFormFile file)
+    {
+        try
+        {
 
+
+            //Check if who is logged in
+            string? userEmail = HttpContext.Session.GetString("loggedInUser");
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized("User is not logged in");
+            }
+
+            //Get model user class from DB with matching email. 
+            Models.User? user = context.GetUser(userEmail);
+            //Clear the tracking of all objects to avoid double tracking
+            context.ChangeTracker.Clear();
+
+            if (user == null)
+            {
+                return Unauthorized("User is not found in the database");
+            }
+
+            //Add File record to DB and get its id
+            Models.File f = new Models.File();
+
+            //Read all files sent
+            long imagesSize = 0;
+
+            if (file.Length > 0)
+            {
+                //Check the file extention!
+                string[] allowedExtentions = { ".png", ".jpg" };
+                string extention = "";
+                if (file.FileName.LastIndexOf(".") > 0)
+                {
+                    extention = file.FileName.Substring(file.FileName.LastIndexOf(".")).ToLower();
+                }
+                if (!allowedExtentions.Where(e => e == extention).Any())
+                {
+                    //Extention is not supported
+                    return BadRequest("File sent with non supported extention");
+                }
+
+
+                //Add File record to DB and get its id
+                f = new Models.File() { FileExt = extention };
+                context.Files.Add(f);
+                context.SaveChanges();
+
+                //Build path in the web root (better to a specific folder under the web root
+                string filePath = $"{this.webHostEnvironment.WebRootPath}\\UserImages\\{f.FileId}{extention}";
+
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+
+                    if (IsImage(stream))
+                    {
+                        imagesSize += stream.Length;
+                    }
+                    else
+                    {
+                        //Delete the file if it is not supported!
+                        System.IO.File.Delete(filePath);
+                    }
+
+                }
+                user.Files.Add(f);
+                context.SaveChanges();
+
+                DTO.User dtoUser = new DTO.User(user);
+                return Ok(dtoUser);
+            }
+            else
+                return BadRequest("File is empty");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return BadRequest(ex.Message);
+        }
+
+        
+    }
+
+    //this function gets a file stream and check if it is an image
+    private static bool IsImage(Stream stream)
+    {
+        stream.Seek(0, SeekOrigin.Begin);
+
+        List<string> jpg = new List<string> { "FF", "D8" };
+        List<string> bmp = new List<string> { "42", "4D" };
+        List<string> gif = new List<string> { "47", "49", "46" };
+        List<string> png = new List<string> { "89", "50", "4E", "47", "0D", "0A", "1A", "0A" };
+        List<List<string>> imgTypes = new List<List<string>> { jpg, bmp, gif, png };
+
+        List<string> bytesIterated = new List<string>();
+
+        for (int i = 0; i < 8; i++)
+        {
+            string bit = stream.ReadByte().ToString("X2");
+            bytesIterated.Add(bit);
+
+            bool isImage = imgTypes.Any(img => !img.Except(bytesIterated).Any());
+            if (isImage)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    #endregion
 
     #region Backup / Restore
     [HttpGet("Backup")]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FameMatchServer.Models;
 
-[Index("UserEmail", Name = "UQ__Users__08638DF8300472CA", IsUnique = true)]
+[Index("UserEmail", Name = "UQ__Users__08638DF85458B25C", IsUnique = true)]
 public partial class User
 {
     [Key]
@@ -45,12 +45,13 @@ public partial class User
     [InverseProperty("Sender")]
     public virtual ICollection<Message> MessageSenders { get; set; } = new List<Message>();
 
-    [InverseProperty("User")]
-    public virtual Picture? Picture { get; set; }
-
     [InverseProperty("Reported")]
     public virtual ICollection<Reporet> ReporetReporteds { get; set; } = new List<Reporet>();
 
     [InverseProperty("User")]
     public virtual ICollection<Reporet> ReporetUsers { get; set; } = new List<Reporet>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Users")]
+    public virtual ICollection<File> Files { get; set; } = new List<File>();
 }

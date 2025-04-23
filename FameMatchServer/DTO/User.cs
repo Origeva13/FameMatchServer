@@ -36,7 +36,7 @@ namespace FameMatchServer.DTO
 
         //public virtual ICollection<Message> MessageSenders { get; set; } = new List<Message>();
 
-        public virtual Picture? Picture { get; set; }
+        public virtual ICollection<File> Files { get; set; } = new List<File>();
 
         //public virtual ICollection<Reporet> ReporetReporteds { get; set; } = new List<Reporet>();
 
@@ -53,6 +53,14 @@ namespace FameMatchServer.DTO
             this.UserGender= modelUser.UserGender;
             this.IsReported= modelUser.IsReported;
             this.IsBlocked = modelUser.IsBlocked;
+            if (modelUser.Files != null)
+            {
+                foreach (var file in modelUser.Files)
+                {
+                    this.Files.Add(new File(file));
+                }
+            }
+
         }
         public Models.User GetModel()
         {

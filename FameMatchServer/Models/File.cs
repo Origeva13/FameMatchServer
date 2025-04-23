@@ -14,6 +14,7 @@ public partial class File
     [StringLength(50)]
     public string FileExt { get; set; } = null!;
 
-    [InverseProperty("File")]
-    public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+    [ForeignKey("FileId")]
+    [InverseProperty("Files")]
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }
