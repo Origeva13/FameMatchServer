@@ -101,14 +101,8 @@ Answer4 nvarchar(800) Not Null
 Create Table Files
 (
 FileId Int Primary Key Identity(1,1),
+UserId  int Foreign Key References Users(UserId) not null,
 FileExt Nvarchar(50) Not Null
-)
-
-Create Table Pictures
-(
-UserId  int Foreign Key References Users(UserId),
-FileId int Foreign Key References Files(FileId)
-primary key (UserId,FileId)
 )
 
 CREATE LOGIN [FameMatchAdminLogin] WITH PASSWORD ='ori1geva2';
@@ -162,3 +156,8 @@ insert into Castor(UserId,CompanyName,NumOfLisence,IsAprooved)
 values(8,'Lcompany',3000,1)
 select*from Users
 --scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=FameMatchDB;User ID=FameMatchAdminLogin;Password=ori1geva2;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context FameMatchDbContext -DataAnnotations –force
+
+delete Files
+drop table Pictures
+drop table Files
+

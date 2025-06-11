@@ -7,12 +7,13 @@ namespace FameMatchServer.DTO
     {
        
         public int FileId { get; set; }
+        public int UserId { get; set; }
 
-        
         public string FileExt { get; set; } = null!;
         public File() { }
         public File(Models.File F)
         {
+            this.UserId = F.UserId;
             this.FileId = F.FileId;
             this.FileExt = F.FileExt;
         }
@@ -21,6 +22,7 @@ namespace FameMatchServer.DTO
             Models.File F = new Models.File();
             F.FileId = this.FileId;
             F.FileExt = this.FileExt;
+            F.UserId = this.UserId;
             return F;
         }
 

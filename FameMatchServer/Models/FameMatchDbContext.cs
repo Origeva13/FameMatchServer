@@ -68,7 +68,11 @@ public partial class FameMatchDbContext : DbContext
 
         modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BFE9414B58");
+            entity.HasKey(e => e.FileId).HasName("PK__Files__6F0F98BF826713AE");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Files)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Files__UserId__4CA06362");
         });
 
         modelBuilder.Entity<Message>(entity =>
@@ -99,23 +103,6 @@ public partial class FameMatchDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C5A266922");
-
-            entity.HasMany(d => d.Files).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Picture",
-                    r => r.HasOne<File>().WithMany()
-                        .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Pictures__FileId__4222D4EF"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Pictures__UserId__412EB0B6"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "FileId").HasName("PK__Pictures__F17835C75E252775");
-                        j.ToTable("Pictures");
-                    });
         });
 
         OnModelCreatingPartial(modelBuilder);

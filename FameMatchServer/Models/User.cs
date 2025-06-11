@@ -39,6 +39,9 @@ public partial class User
     [InverseProperty("User")]
     public virtual Castor? Castor { get; set; }
 
+    [InverseProperty("User")]
+    public virtual ICollection<File> Files { get; set; } = new List<File>();
+
     [InverseProperty("Reciver")]
     public virtual ICollection<Message> MessageRecivers { get; set; } = new List<Message>();
 
@@ -50,8 +53,4 @@ public partial class User
 
     [InverseProperty("User")]
     public virtual ICollection<Reporet> ReporetUsers { get; set; } = new List<Reporet>();
-
-    [ForeignKey("UserId")]
-    [InverseProperty("Users")]
-    public virtual ICollection<File> Files { get; set; } = new List<File>();
 }

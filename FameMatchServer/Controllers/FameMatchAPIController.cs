@@ -780,9 +780,7 @@ public class FameMatchAPIController : ControllerBase
                 return Unauthorized("User is not found in the database");
             }
 
-            //Add File record to DB and get its id
-            Models.File f = new Models.File();
-
+            
             //Read all files sent
             long imagesSize = 0;
 
@@ -803,9 +801,12 @@ public class FameMatchAPIController : ControllerBase
 
 
                 //Add File record to DB and get its id
-                f = new Models.File() { FileExt = extention };
+                Models.File f = new Models.File() { FileExt = extention, UserId = user.UserId };
                 context.Files.Add(f);
+                
                 context.SaveChanges();
+                
+                
 
                 //Build path in the web root (better to a specific folder under the web root
                 string filePath = $"{this.webHostEnvironment.WebRootPath}\\UserImages\\{f.FileId}{extention}";
@@ -825,9 +826,7 @@ public class FameMatchAPIController : ControllerBase
                     }
 
                 }
-                user.Files.Add(f);
-                context.SaveChanges();
-
+                user = context.GetUser(userEmail); // read user again with the new file
                 DTO.User dtoUser = new DTO.User(user);
                 return Ok(dtoUser);
             }
